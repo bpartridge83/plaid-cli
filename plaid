@@ -1,0 +1,38 @@
+#!/usr/bin/env node
+
+'use strict';
+
+var config = require('nconf'),
+  fs = require('fs'),
+  Plaid = require('plaid');
+
+if (!fs.existsSync('./config.json')) {
+  fs.writeFileSync('./config.json', '{}');
+}
+
+config.use('file', { file: './config.json' }).load();
+
+global._ = require('underscore');
+global.program = require('commander').version('0.0.1');
+global.options = require('minimist')(process.argv.slice(2));
+global.config = config;
+global.prompt = require('prompt');
+
+if (config.get('client_id') && config.get('secret')) {
+
+  global.plaid = Plaid({
+    client_id: config.get('client_id'), 
+    secret: config.get('secret')
+  });
+
+}
+
+program
+  .option('-c, --client <string>', 'Enter API Client ID')
+  .option('-s, --secret <string>', 'Enter API Secret')
+  .option('-l, --list', 'List Accounts')
+  .option('-i, --info', 'Plaid API Credentials');
+
+require('./commands')();
+
+program.parse(process.argv);
