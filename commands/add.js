@@ -32,54 +32,52 @@ module.exports = function () {
 
   }
 
-
-
   program
     .command('add')
     .action(function () {
 
-      request('https://api.plaid.com/institutions', function (err, response, body) {
+      // request('https://api.plaid.com/institutions', function (err, response, body) {
 
-        var institutions = JSON.parse(body);
+      //   var institutions = JSON.parse(body);
 
-        console.log(institutions[0])
-
-      });
-
-      // if (!plaid) return;
-
-      // prompt.get([
-      //   {
-      //     name: 'Institution Key',
-      //     required: true,
-      //     pattern: /^[a-zA-Z\s\-]+$/,
-      //   },
-      //   {
-      //     name: 'Institution Username',
-      //     required: true,
-      //     pattern: /^[a-zA-Z0-9\s\-]+$/
-      //   },
-      //   {
-      //     name: 'Institution Password',
-      //     required: true,
-      //     hidden: true
-      //   },
-      //   {
-      //     name: 'Email Address',
-      //     required: true
-      //   }
-      // ], function (err, results) {
-
-      //   console.log(results);
-
-      //   die();
-
-      //   plaid.connect({
-      //     username: results['Institution Username'],
-      //     password: results['Institution Password']
-      //   }, results['Institution Key'], results['Email Address'], callback);
+      //   console.log(institutions[0])
 
       // });
+
+      if (!plaid) return;
+
+      prompt.get([
+        {
+          name: 'Institution Key',
+          required: true,
+          pattern: /^[a-zA-Z\s\-]+$/,
+        },
+        {
+          name: 'Institution Username',
+          required: true,
+          pattern: /^[a-zA-Z0-9\s\-]+$/
+        },
+        {
+          name: 'Institution Password',
+          required: true,
+          hidden: true
+        },
+        {
+          name: 'Email Address',
+          required: true
+        }
+      ], function (err, results) {
+
+        console.log(results);
+
+        die();
+
+        plaid.connect({
+          username: results['Institution Username'],
+          password: results['Institution Password']
+        }, results['Institution Key'], results['Email Address'], callback);
+
+      });
 
     });
 
