@@ -1,12 +1,13 @@
 {
-  "name": "plaid-testing",
+  "name": "plaid-cli",
   "version": "0.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "CLI interface built for the Plaid API",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "bin": {
+    "plaid": "./plaid"
+  },
   "license": "ISC",
   "dependencies": {
     "plaid": "~0.1.0",
